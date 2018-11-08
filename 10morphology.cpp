@@ -17,7 +17,6 @@ void main() {
   for (int i = 0; i < src.rows; i++) 
 		for (int j = 0; j < src.cols; j++) {
       int vote = 0;
-			//erosion
 			for (int mi = -N/2, m=0; mi < N - 1; mi++)
 				for (int mj = -N / 2; mj < N - 1; mj++) {
 					 if (mask[i+N/2][j+N/2] <= src.at<Vec3b>(i + mi, j + mj)) 
