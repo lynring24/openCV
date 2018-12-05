@@ -11,6 +11,8 @@ int height = 256 * 2 + 1;
 int hough[100][256 * 2 + 1] = { 0, };
 double theta, rho;
 
+double maxr = 0, minr = 0;
+
 double getHoughTransfrom(int x, int y, int angle);
 void transformHoughAt(int x, int y);
 Point getMaxHough();
@@ -23,10 +25,10 @@ void main() {
 			transformHoughAt(x , y);
 	
 	Point max = getMaxHough();
-	
+	//cout << maxr << "		" << minr << endl;
 	//get max degree from the max point 
-	theta = M_PI / width * max.x;
-
+	theta = M_PI / (double) width * max.x;
+	// max.y = max.y - 256;
 	//from dst image, check if the value of transfrom pass by the point 
 	
 	Mat dst = Mat::zeros(src.size(), src.type());
@@ -44,10 +46,11 @@ void main() {
 	imshow("Hough", dst);
 	waitKey(0);
 }
-
 double getHoughTransfrom(int x, int y, int angle) {
-	theta = (double) angle * M_PI / width;
+	theta = (double) angle * M_PI / (double) width;
 	rho = double(x)*cos(theta) + double(y)*sin(theta);
+	if (rho > maxr) maxr = rho;
+	if (rho < minr) minr = rho;
 	return rho;
 }
 
@@ -67,6 +70,7 @@ Point getMaxHough() {
 				current = hough[x][y];
 				max.x = x;
 				max.y = y;
+				cout << " ( " << max.x << ", " << max.y << ") " << endl;
 			}
 	return max;
 }

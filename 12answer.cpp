@@ -54,7 +54,6 @@ int main(int argc, char** argv) {
 				t_loc = j;
 			}
 
-	// cout  << r_loc << " " << t_loc <<  endl;
 	theta = PI / 100 * t_loc;
 	r = 256 - int(rho + 0.5);
 	rho = 256 - r_loc;
